@@ -1,0 +1,4 @@
+repository "CasualRunner@CasualRunner_FiveSysDev@cloud"
+  path "/"
+    br "/main"
+    co "/main"
