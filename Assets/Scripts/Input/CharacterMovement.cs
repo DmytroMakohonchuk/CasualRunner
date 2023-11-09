@@ -127,12 +127,22 @@ public class CharacterMovement : MonoBehaviour
 
         }
 
-        x = x * (1 - Time.deltaTime * speedDodge) + _newXPos * (Time.deltaTime * speedDodge);
+        //x = x * (1 - Time.deltaTime * speedDodge) + _newXPos * (Time.deltaTime * speedDodge);
+        //Vector3 moveVector = new Vector3(x - transform.position.x, y * Time.deltaTime, 0);
+        ////character.Move(moveVector);
+        //transform.position = new Vector3(x, transform.position.y, transform.position.z);
+
         Vector3 moveVector = new Vector3(x - transform.position.x, y * Time.deltaTime, 0);
-        //character.Move(moveVector);
-        transform.position = new Vector3(x, y * Time.deltaTime, transform.position.z);
+        x = Mathf.Lerp(x, _newXPos, Time.deltaTime * speedDodge);
+        character.Move(moveVector); 
+
         Jump();
         Roll();
+    }
+
+    private void FixedUpdate()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);        
     }
 
     private void Jump()
