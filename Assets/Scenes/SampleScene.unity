@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d131e00db8af7c84f814fbc9069e0c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.208
   tilePrefab: {fileID: 5054448609409021606, guid: 7537355f6ea01d549aa2362125b79493, type: 3}
 --- !u!114 &479973887
 MonoBehaviour:
@@ -1241,6 +1241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77677410d67ec0d4180870c54163f760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 1171546819}
   _animController: {fileID: 0}
   character: {fileID: 1025394779}
   m_Side: 1
@@ -1248,7 +1249,7 @@ MonoBehaviour:
   SwipeRight: 0
   SwipeUp: 0
   SwipeDown: 0
-  XValue: 3
+  XValue: 4
   speedDodge: 10
   jumpPower: 10
   inJump: 0

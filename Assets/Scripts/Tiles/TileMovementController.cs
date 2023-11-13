@@ -37,7 +37,6 @@ public class TileMovementController : MonoBehaviour, ITileMovementController
 
     private void Start()
     {
-        movementVector = new Vector3(0, 0, -speed);
     }
 
     public void MoveTiles()
@@ -93,6 +92,7 @@ public class TileMovementController : MonoBehaviour, ITileMovementController
 
     public void FixedUpdate()
     {
+        movementVector = new Vector3(0, 0, -speed);
         originalTilePositions = tileSpawner.GetOriginalTilePositions();
         spawnedTiles = tileSpawner.GetSpawnedTiles();
     }

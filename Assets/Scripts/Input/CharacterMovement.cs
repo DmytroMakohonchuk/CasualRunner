@@ -7,7 +7,7 @@ public enum SIDE { Left, Middle, Right }
 
 public class CharacterMovement : MonoBehaviour
 {
-    //[SerializeField] private Animator _animator;
+    [SerializeField] private Animator _animator;
     [SerializeField] AnimationController _animController;
     [SerializeField] private CharacterController character;
 
@@ -186,11 +186,13 @@ public class CharacterMovement : MonoBehaviour
 
         if(SwipeDown)
         {
+            RollCounter = 0.7f;
             y -= 10f;
-            character.center = new Vector3(0, ColCenterY/2f, 0);
-            character.height = ColHeight/2f;
-            //_animator.CrossFadeInFixedTime("Bend", 0.1f);
+            character.center = new Vector3(0, ColCenterY / 2f, 0);
+            character.height = ColHeight / 2f;
+            _animator.CrossFadeInFixedTime("Bend", 0.1f);
             inRoll = true;
+            inJump = false;
         }
     }
 
