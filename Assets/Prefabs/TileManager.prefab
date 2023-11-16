@@ -384,7 +384,7 @@ MonoBehaviour:
   - {fileID: 5371372976334416604, guid: 3ae64ffe64216ea499ec1823ea410a41, type: 3}
   coinPrefab: {fileID: 0}
   xSpawnPointsCount: 3
-  zSpawnPointsCount: 2
+  zSpawnPointsCount: 3
   emptyChance: 0
 --- !u!1001 &510621253347866995
 PrefabInstance:
