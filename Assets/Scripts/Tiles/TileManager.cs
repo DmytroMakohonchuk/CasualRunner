@@ -4,8 +4,8 @@ using Zenject;
 
 public class TileManager : MonoBehaviour, ITileManager
 {
-    [Inject] private ITileMovementController tileMovementController;
-    [Inject] private ITileSpawner tileSpawner;
+    [Inject] private TileMovementController tileMovementController;
+    [Inject] private TileSpawner tileSpawner;
 
     private void Start()
     {

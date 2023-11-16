@@ -45,7 +45,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
         isMovementEnabled = false;
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;

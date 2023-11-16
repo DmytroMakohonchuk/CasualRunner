@@ -8,6 +8,8 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
 {
     public event Action<LevelTile> OnTileChanged;
 
+    [Inject] TileMovementController m_Controller;
+
     [SerializeField] LevelTile initialTile;
 
     private LevelTile? groundTile;
@@ -56,9 +58,17 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
         SetMaxXPos();
     }
 
-    private void UpdateGroundTile(LevelTile tile)
+    public void RestartTiles()
     {
-        initialTile = tile;
+        ConsecutiveTileCount = 0;
+        SpawnOnZAxis = -12.0f;
+        foreach (var tile in spawnedTiles)
+        {
+            Destroy(tile);
+        }
+        spawnedTiles.Clear();
+        m_Controller.MovementVector = new Vector3(0, 0, -m_Controller.Speed);
+        StartSpawnTiles();
     }
 
     public List<Vector3> GetOriginalTilePositions()

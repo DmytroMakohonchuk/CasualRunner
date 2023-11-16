@@ -6,7 +6,7 @@ public class TileMovementController : MonoBehaviour, ITileMovementController
 {
     //[Inject] private ITilePauseManager tilePauseManager;
 
-    [Inject] private ITileSpawner tileSpawner;
+    [Inject] private TileSpawner tileSpawner;
 
     private List<GameObject> spawnedTiles = new List<GameObject>();
 

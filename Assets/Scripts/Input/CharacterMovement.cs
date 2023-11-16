@@ -80,6 +80,13 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    public void ResetPlayerPosition()
+    {
+        character.transform.position = Vector3.up;
+        m_Side = SIDE.Middle;
+        _newXPos = 0f;
+    }
+
     private void MovePlayerBetweenLines()
     {
         if (SwipeLeft)
