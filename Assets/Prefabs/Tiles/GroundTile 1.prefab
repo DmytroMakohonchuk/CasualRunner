@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8545697007661919003}
   - component: {fileID: 7900630460357589422}
   - component: {fileID: 8513859724135819959}
-  - component: {fileID: -4537070752775151976}
   m_Layer: 3
   m_Name: GroundTile 1
   m_TagString: StartTile
@@ -85,33 +84,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 9028503274158191801}
---- !u!114 &-4537070752775151976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5054448609409021606}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bcf80f4e081b674a82e4be168971b72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilePrefabCollider: {fileID: 9028503274158191801}
-  emptyPrefabs:
-  - {fileID: 8703962926754324504, guid: 60936a61148dd6f4daf1ca10a7ff7cdd, type: 3}
-  rampPrefabs:
-  - {fileID: 1439117494235307757, guid: 54d04e2b4d5515741a0f1f33452cc848, type: 3}
-  jumpPrefabs:
-  - {fileID: 3988960279715686542, guid: ce3bd0c07d3a40c40ac01f235ad2d42c, type: 3}
-  bendPrefabs:
-  - {fileID: 252773061279434512, guid: f8eab488622f0a940b2dcc36112cd2fd, type: 3}
-  blockPrefabs:
-  - {fileID: 5371372976334416604, guid: c1cffc35bead3d9469668d0466780ef0, type: 3}
-  coinPrefab: {fileID: 0}
-  xSpawnPointsCount: 3
-  zSpawnPointsCount: 2
-  emptyChance: 0
 --- !u!1001 &1501633454974041336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -121,12 +93,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 5054448609409021610}
     m_Modifications:
     - target: {fileID: 1205471004103608189, guid: 2e2460800edd4124682963a24243b8ed, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205471004103608189, guid: 2e2460800edd4124682963a24243b8ed, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.63251
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205471004103608189, guid: 2e2460800edd4124682963a24243b8ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.39
       objectReference: {fileID: 0}
     - target: {fileID: 4880437349703502480, guid: 2e2460800edd4124682963a24243b8ed, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5757251415401990988, guid: 2e2460800edd4124682963a24243b8ed, type: 3}
       propertyPath: m_Name

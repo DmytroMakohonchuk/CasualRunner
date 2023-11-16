@@ -179,7 +179,7 @@ public class CharacterMovement : MonoBehaviour
         if(RollCounter <= 0f)
         {
             RollCounter = 0f;
-            character.center = new Vector3(0, ColCenterY, 0);
+            //character.center = new Vector3(0, ColCenterY, 0);
             character.height = ColHeight;
             inRoll = false;
         }
@@ -188,7 +188,7 @@ public class CharacterMovement : MonoBehaviour
         {
             RollCounter = 0.7f;
             y -= 10f;
-            character.center = new Vector3(0, ColCenterY / 2f, 0);
+            //character.center = new Vector3(0, ColCenterY / 2f, 0);
             character.height = ColHeight / 2f;
             _animator.CrossFadeInFixedTime("Bend", 0.1f);
             inRoll = true;

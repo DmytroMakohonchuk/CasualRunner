@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.29435, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1.8658191, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1205471004103608189}
@@ -376,12 +376,14 @@ MonoBehaviour:
   - {fileID: 1439117494235307757, guid: 54d04e2b4d5515741a0f1f33452cc848, type: 3}
   jumpPrefabs:
   - {fileID: 3988960279715686542, guid: ce3bd0c07d3a40c40ac01f235ad2d42c, type: 3}
+  - {fileID: 3988960279715686542, guid: ce4825d569e5b784db7c29425c82c7bd, type: 3}
   bendPrefabs:
   - {fileID: 252773061279434512, guid: f8eab488622f0a940b2dcc36112cd2fd, type: 3}
   blockPrefabs:
   - {fileID: 5371372976334416604, guid: c1cffc35bead3d9469668d0466780ef0, type: 3}
+  - {fileID: 5371372976334416604, guid: 3ae64ffe64216ea499ec1823ea410a41, type: 3}
   coinPrefab: {fileID: 0}
-  xSpawnPointsCount: 5
+  xSpawnPointsCount: 3
   zSpawnPointsCount: 2
   emptyChance: 0
 --- !u!1001 &510621253347866995
@@ -397,12 +399,16 @@ PrefabInstance:
       value: Lantern_1 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4263584538257958, guid: 7f4539cf3ecac624eae75977a6cd2072, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263584538257958, guid: 7f4539cf3ecac624eae75977a6cd2072, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.63251
       objectReference: {fileID: 0}
     - target: {fileID: 4263584538257958, guid: 7f4539cf3ecac624eae75977a6cd2072, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.93
+      value: 2.87
       objectReference: {fileID: 0}
     - target: {fileID: 4263584538257958, guid: 7f4539cf3ecac624eae75977a6cd2072, type: 3}
       propertyPath: m_LocalPosition.y
@@ -463,12 +469,16 @@ PrefabInstance:
       value: Lantern_1
       objectReference: {fileID: 0}
     - target: {fileID: 4263584538257958, guid: 7f4539cf3ecac624eae75977a6cd2072, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263584538257958, guid: 7f4539cf3ecac624eae75977a6cd2072, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.63251
       objectReference: {fileID: 0}
     - target: {fileID: 4263584538257958, guid: 7f4539cf3ecac624eae75977a6cd2072, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.79
+      value: -2.39
       objectReference: {fileID: 0}
     - target: {fileID: 4263584538257958, guid: 7f4539cf3ecac624eae75977a6cd2072, type: 3}
       propertyPath: m_LocalPosition.y
@@ -529,8 +539,12 @@ PrefabInstance:
       value: WallStone
       objectReference: {fileID: 0}
     - target: {fileID: 7596934186446289810, guid: 2beaed3cef07a476194414324865b9e9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596934186446289810, guid: 2beaed3cef07a476194414324865b9e9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1933792
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7596934186446289810, guid: 2beaed3cef07a476194414324865b9e9, type: 3}
       propertyPath: m_LocalScale.z
