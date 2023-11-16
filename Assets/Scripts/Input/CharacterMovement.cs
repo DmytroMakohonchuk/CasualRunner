@@ -26,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
     public bool inRoll;
     private float ColHeight;
     private float ColCenterY;
+    private bool isMovementEnabled;
     [SerializeField] private float colliderYCenterOffset;
 
     private float xTransition;
@@ -58,7 +59,8 @@ public class CharacterMovement : MonoBehaviour
         SwipeRight = SwipeController.swipeRight;
         SwipeUp = SwipeController.swipeUp;
         SwipeDown = SwipeController.swipeDown;
-        MovePlayerBetweenLines();
+        isMovementEnabled = PauseMenu.isMovementEnabled;
+        PlayerMovement(isMovementEnabled);
     }
 
 
@@ -68,9 +70,18 @@ public class CharacterMovement : MonoBehaviour
     //}
 
 
+    public void PlayerMovement(bool moveEnabled)
+    {
+        if (moveEnabled)
+        {
+            MovePlayerBetweenLines();
+            Jump();
+            Roll();
+        }
+    }
+
     private void MovePlayerBetweenLines()
     {
-
         if (SwipeLeft)
         {
             //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
@@ -87,14 +98,14 @@ public class CharacterMovement : MonoBehaviour
                 _newXPos = -XValue;
                 m_Side = SIDE.Left;
                 //if (character.isGrounded)
-                    //_animator.Play("Dodge_left");
+                //_animator.Play("Dodge_left");
             }
             else if (m_Side == SIDE.Right)
             {
                 _newXPos = 0;
                 m_Side = SIDE.Middle;
                 //if(character.isGrounded)
-                    //_animator.Play("Dodge_left");
+                //_animator.Play("Dodge_left");
             }
         }
 
@@ -134,10 +145,7 @@ public class CharacterMovement : MonoBehaviour
 
         Vector3 moveVector = new Vector3(x - transform.position.x, y * Time.deltaTime, 0);
         x = Mathf.Lerp(x, _newXPos, Time.deltaTime * speedDodge);
-        character.Move(moveVector); 
-
-        Jump();
-        Roll();
+        character.Move(moveVector);
     }
 
     private void FixedUpdate()

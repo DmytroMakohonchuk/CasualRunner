@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -11,11 +12,13 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused;
 
+    public static bool isMovementEnabled = true;
+
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
-        // Додаємо обробник події натискання кнопки
+
         pauseButton.onClick.AddListener(TogglePause);
         resumeButton.onClick.AddListener(TogglePause);
     }
@@ -26,7 +29,6 @@ public class PauseMenu : MonoBehaviour
         
     }
 
-    // Функція для включення або виключення паузи
     private void TogglePause()
     {
         isPaused = !isPaused;
@@ -48,6 +50,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        isMovementEnabled = false;
     }
 
     private void ResumeGame()
@@ -55,5 +58,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        isMovementEnabled = true;
     }
 }
