@@ -786,12 +786,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialTile: {fileID: 8513859724135819959, guid: 9dd34e588036d874ca999d7ec5d73840, type: 3}
+  allTilesPrefabs:
+  - <tilesPrefabs>k__BackingField:
+    - {fileID: 5054448609409021606, guid: 520de830e33bd7143bcb26c6df41e3c7, type: 3}
+    - {fileID: 5054448609409021606, guid: 2eba0d114227f944aa44eca734c99df6, type: 3}
+  - <tilesPrefabs>k__BackingField:
+    - {fileID: 5054448609409021606, guid: 21991a19c3e69be43af6958ead6ee452, type: 3}
   tilePrefabs:
-  - {fileID: 5054448609409021606, guid: 520de830e33bd7143bcb26c6df41e3c7, type: 3}
-  - {fileID: 5054448609409021606, guid: f512eea7a4a53e6468bae08c388f0a40, type: 3}
   - {fileID: 5054448609409021606, guid: 9dd34e588036d874ca999d7ec5d73840, type: 3}
-  - {fileID: 5054448609409021606, guid: 21991a19c3e69be43af6958ead6ee452, type: 3}
-  - {fileID: 5054448609409021606, guid: 9dd34e588036d874ca999d7ec5d73840, type: 3}
+  numberOfSamePrefabTiles: 3
 --- !u!1 &666704767
 GameObject:
   m_ObjectHideFlags: 0

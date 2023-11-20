@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class TileSpawner : MonoBehaviour, ITileSpawner
 {
@@ -11,22 +13,17 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
     [Inject] TileMovementController m_Controller;
 
     [SerializeField] LevelTile initialTile;
+    [SerializeField] List<ListOfGameObject> allTilesPrefabs;
 
     private LevelTile? groundTile;
-
+    private int counter;
+    private int randomNumber;
+    private int randomNumberNew;
     private List<GameObject> spawnedTiles = new List<GameObject>();
     private int _consecutiveTileCount = 0;
     private DiContainer _container;
     private Collider _col;
-    //[Inject] IPlayerTouchMovement _playerTouchMovement;
-
-    //[Inject] PlayerController _playerController;
-
-    [Inject] 
-    private void Constructor(DiContainer container)
-    {
-        _container = container;
-    }
+    private int sameTypeTileCounter = 0;
 
     public int ConsecutiveTileCount
     {
@@ -34,7 +31,7 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
         set { _consecutiveTileCount = value; }
     }
 
-    public GameObject[] tilePrefabs;
+    public List<GameObject> tilePrefabs;
 
     private float spawnOnZAxis = -12.0f;
 
@@ -50,7 +47,16 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
     private float tileLength;
 
     private bool spawnSamePrefabTiles = true;
-    private int numberOfSamePrefabTiles = 3; // Задайте кількість тайлів одного префабу
+    [SerializeField] private int numberOfSamePrefabTiles = 4; // Задайте кількість тайлів одного префабу
+    //[Inject] IPlayerTouchMovement _playerTouchMovement;
+
+    //[Inject] PlayerController _playerController;
+
+    [Inject] 
+    private void Constructor(DiContainer container)
+    {
+        _container = container;
+    }
 
     private void Start()
     {
@@ -104,7 +110,7 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
     {
         // Отримати індекси всіх тайлів з тегом "StartTiles"
         List<int> startTileIndexes = new List<int>();
-        for (int i = 0; i < tilePrefabs.Length; i++)
+        for (int i = 0; i < tilePrefabs.Count; i++)
         {
             if (tilePrefabs[i].CompareTag("StartTile"))
             {
@@ -122,7 +128,6 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
             CheckAndRemoveExcessTiles();
 
             UpdateOriginalTilePositions();
-
             startTilesSpawned++; // Збільшити лічильник спавнутих початкових тайлів
         }
         else
@@ -148,72 +153,50 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
         //}
     }
 
-    public void SpawnTile(int prefabIndex = -1)
-{
-    if (prefabIndex == -1)
+        public void SpawnTile(int prefabIndex = -1)
     {
-        prefabIndex = GenerateRandomPrefabIndex();
-    }
-    else
-    {
-        ResetConsecutiveTileCount();
-    }
-
-    float spawnPosition = CalculateSpawnPosition();
-
-    SpawnPrefabAtIndex(prefabIndex, spawnPosition);
-
-    CheckAndRemoveExcessTiles();
-
-    UpdateOriginalTilePositions();
-
-}
-
-private int GenerateRandomPrefabIndex()
-{
-    int randomIndex;
-    if (_consecutiveTileCount < 5)
-    {
-        do
+        SetTilePrefabs();
+        if (prefabIndex == -1)
         {
-            randomIndex = UnityEngine.Random.Range(0, tilePrefabs.Length);
-        } while (randomIndex == 1);
-        _consecutiveTileCount++;
+            prefabIndex = GenerateRandomPrefabIndex();
+        }
+        else
+        {
+            ResetConsecutiveTileCount();
+        }
+
+        float spawnPosition = CalculateSpawnPosition();
+
+        SpawnPrefabAtIndex(prefabIndex, spawnPosition);
+
+        CheckAndRemoveExcessTiles();
+
+        UpdateOriginalTilePositions();
+
     }
-    else
+
+    private int GenerateRandomPrefabIndex()
     {
-        randomIndex = UnityEngine.Random.Range(0, tilePrefabs.Length);
+        int randomIndex;
+        if (_consecutiveTileCount < 5)
+        {
+            do
+            {
+                randomIndex = UnityEngine.Random.Range(0, tilePrefabs.Count);
+            } while (randomIndex == 1);
+            _consecutiveTileCount++;
+        }
+        else
+        {
+            randomIndex = UnityEngine.Random.Range(0, tilePrefabs.Count);
+        }
+        return randomIndex;
     }
-    return randomIndex;
-}
 
-private void ResetConsecutiveTileCount()
-{
-    _consecutiveTileCount = 0;
-}
-
-    //private float CalculateSpawnPosition()
-    //{
-    //    if (spawnedTiles.Count != 0)
-    //    {
-    //        return spawnedTiles[spawnedTiles.Count - 1].transform.position.z + tileLength;
-    //    }
-    //    return spawnOnZAxis;
-    //}
-
-    //public float GetMinPos()
-    //{
-    //    //float minXPos = -initialTile.GetColliderWidth() / 2;
-    //    ////Debug.Log($"ATTENTION MIN POS IS: {minXPos}");
-    //    //return minXPos;
-    //}
-
-    //public float GetMaxPos()
-    //{
-    //    //float maxXPos = initialTile.GetColliderWidth() / 2;
-    //    ////Debug.Log($"ATTENTION MAX POS IS: {maxXPos}");
-    //    //return maxXPos;
-    //}
+    private void ResetConsecutiveTileCount()
+    {
+        _consecutiveTileCount = 0;
+    }
 
     private float CalculateSpawnPosition()
     {
@@ -233,31 +216,66 @@ private void ResetConsecutiveTileCount()
 
 
     private void SpawnPrefabAtIndex(int prefabIndex, float spawnPosition)
-{
-    var prefab = tilePrefabs[prefabIndex];
-    GameObject gameObj = _container.InstantiatePrefab(prefab, transform);
-    gameObj.transform.position = Vector3.forward * spawnPosition;
-    spawnedTiles.Add(gameObj);
-}
-
-private void CheckAndRemoveExcessTiles()
-{
-    if (spawnedTiles.Count > amountOfTilesOnScreen)
     {
-        Destroy(spawnedTiles[0]);
-        spawnedTiles.RemoveAt(0);
+        var prefab = tilePrefabs[prefabIndex];
+        GameObject gameObj = _container.InstantiatePrefab(prefab, transform);
+        gameObj.transform.position = Vector3.forward * spawnPosition;
+        spawnedTiles.Add(gameObj);
     }
-}
 
-private void UpdateOriginalTilePositions()
-{
-    originalTilePositions.Clear();
-    int count = Mathf.Min(5, spawnedTiles.Count);
-    for (int i = 0; i < count; i++)
+    private void CheckAndRemoveExcessTiles()
     {
-        originalTilePositions.Add(spawnedTiles[i].transform.position);
+        if (spawnedTiles.Count > amountOfTilesOnScreen)
+        {
+            Destroy(spawnedTiles[0]);
+            spawnedTiles.RemoveAt(0);
+        }
     }
-}
+
+    private void UpdateOriginalTilePositions()
+    {
+        originalTilePositions.Clear();
+        int count = Mathf.Min(5, spawnedTiles.Count);
+        for (int i = 0; i < count; i++)
+        {
+            originalTilePositions.Add(spawnedTiles[i].transform.position);
+        }
+    } 
+
+    private void SetTilePrefabs()
+    {
+        sameTypeTileCounter++;
+        if (sameTypeTileCounter > numberOfSamePrefabTiles || tilePrefabs == null)
+        {
+            GenerateNewValue();
+            tilePrefabs = allTilesPrefabs[randomNumber].tilesPrefabs;
+            sameTypeTileCounter = 0;
+        }
+
+        void GenerateNewValue()
+        {
+            randomNumberNew = Random.Range(0, allTilesPrefabs.Count);
+            if (randomNumber == randomNumberNew)
+            {
+                counter++;
+                if (counter > 1)
+                {
+                    GenerateNewValue();
+                }
+            }
+            else
+            {
+                counter = 0;
+            }
+            randomNumber = randomNumberNew;
+        }
+    }
+
+    [Serializable]
+    public class ListOfGameObject
+    {
+        [field: SerializeField]public List<GameObject> tilesPrefabs { get; set; }
+    }
 
     //private float GetGroundTileWidth()
     //{
