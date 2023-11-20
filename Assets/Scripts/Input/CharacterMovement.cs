@@ -69,6 +69,10 @@ public class CharacterMovement : MonoBehaviour
     //    transform.position = Vector3.Lerp(transform.position, side, Time.deltaTime * 4f);
     //}
 
+    public void EnablePlayerCollider(bool isEnabled)
+    {
+        character.detectCollisions = isEnabled;
+    }
 
     public void PlayerMovement(bool moveEnabled)
     {

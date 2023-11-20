@@ -31,6 +31,10 @@ public class GameOver : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Obstacle"))
         {
+            print("Collision Out: " + hit.gameObject.name);
+
+            hit.gameObject.GetComponent<MeshCollider>().enabled = false;
+            //Destroy(hit.gameObject);
             _pauseMenu.PauseGame();
             _gameOverPanel.SetActive(true);
         }
@@ -41,6 +45,7 @@ public class GameOver : MonoBehaviour
     {
         _gameOverPanel.SetActive(false);
         _characterMovement.ResetPlayerPosition();
+        _characterMovement.EnablePlayerCollider(true);
         _tileSpawner.RestartTiles();
         _pauseMenu.ResumeGame();
     }
