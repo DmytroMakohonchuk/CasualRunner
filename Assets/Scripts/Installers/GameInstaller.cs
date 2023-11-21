@@ -25,6 +25,9 @@ public class GameInstaller : MonoInstaller
     [SerializeField]
     private CharacterMovement _characterMovement;
 
+    [SerializeField]
+    private ObstacleHolder _obstacleHolder;
+
     public override void InstallBindings()
     {
         Container.Bind<ITileManager>().FromInstance(tileManager);
@@ -34,5 +37,6 @@ public class GameInstaller : MonoInstaller
         Container.Bind<SwipeController>().FromInstance(_swipeController).AsSingle();
         Container.Bind<PauseMenu>().FromInstance(_pauseMenu).AsSingle();
         Container.Bind<CharacterMovement>().FromInstance(_characterMovement).AsSingle();
+        Container.Bind<ObstacleHolder>().FromInstance(_obstacleHolder).AsSingle();
     }
 }

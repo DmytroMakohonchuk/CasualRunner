@@ -6,11 +6,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder;
 using UnityEngine.ProBuilder.MeshOperations;
+using Zenject;
 using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
 
 public class ObstaclesCalculations : MonoBehaviour
 {
+    [Inject] private ObstacleHolder _obstacleHolder;
+
     int itemSpace = 15;
     int itemCoundInMap = 5;
 
@@ -20,7 +23,8 @@ public class ObstaclesCalculations : MonoBehaviour
     [SerializeField] private GameObject[] jumpPrefabs;
     [SerializeField] private GameObject[] bendPrefabs;
     [SerializeField] private GameObject[] blockPrefabs;
-    [SerializeField] private GameObject coinPrefab;
+
+    [SerializeField] private LocationStyle _style;
 
     private Dictionary<Obstacles, GameObject[]> prefabsDictionary;
     private Dictionary<Obstacles, int> prefabsIndexesDictionary;
@@ -61,6 +65,12 @@ public class ObstaclesCalculations : MonoBehaviour
 
     private void Start()
     {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        GetObstaclesStyle();
         InitializeObstaclesIndexes();
         SetPrefabsDefaultIndexes();
         SetSpawnRules();
@@ -71,15 +81,6 @@ public class ObstaclesCalculations : MonoBehaviour
         CalculateYposSpawnStep();
         SetSpawnPointsArr();
         SpawnObstacles();
-    }
-
-    private void CreateCoins(CoinStyle style)
-    {
-        Vector3 coinPos = Vector3.zero;
-        if(style == CoinStyle.Line)
-        {
-            
-        }
     }
     
     private void SetPrefabsDefaultIndexes()
@@ -92,6 +93,16 @@ public class ObstaclesCalculations : MonoBehaviour
             { Obstacles.Bend, 0 },
             { Obstacles.Block, 0 }
         };
+    }
+
+    private void GetObstaclesStyle()
+    {
+        var obstaclePrefabs = _obstacleHolder.GetStylePrefabs(_style);
+        emptyPrefabs = obstaclePrefabs.emptyPrefabs;
+        rampPrefabs = obstaclePrefabs.rampPrefabs;
+        jumpPrefabs = obstaclePrefabs.jumpPrefabs;
+        bendPrefabs = obstaclePrefabs.bendPrefabs;
+        blockPrefabs = obstaclePrefabs.blockPrefabs;
     }
 
     private Obstacles GetRandomIndexFromDictionary(Dictionary<Obstacles, int> dictionary)
@@ -225,8 +236,6 @@ public class ObstaclesCalculations : MonoBehaviour
     };
     }
 
-
-
     private void InitializeObstaclesIndexes()
     {
         obstaclesIndexes = new Obstacles[xSpawnPointsCount, zSpawnPointsCount];
@@ -272,11 +281,5 @@ public class ObstaclesCalculations : MonoBehaviour
                 obstaclesToSpawn.Add(obstacleToSpawn);
             }
         }
-    }
-
-    private bool GenerateRandomChance(int chance)
-    {
-        var currentNum = Random.Range(1, 101);
-        return chance > currentNum;
     }
 }

@@ -11,7 +11,7 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
     public event Action<LevelTile> OnTileChanged;
 
     [Inject] TileMovementController m_Controller;
-
+    [SerializeField] GameObject startTile;
     [SerializeField] LevelTile initialTile;
     [SerializeField] List<ListOfGameObject> allTilesPrefabs;
 
@@ -74,6 +74,8 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
         }
         spawnedTiles.Clear();
         m_Controller.MovementVector = new Vector3(0, 0, -m_Controller.Speed);
+        sameTypeTileCounter = 0;
+        SetTilePrefabs();
         StartSpawnTiles();
     }
 
@@ -95,7 +97,7 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
         GetTileLength();
         for (int i = 0; i < amountOfTilesOnScreen; i++)
         {
-            if (startTilesSpawned < 3) // Перевірка, чи ще не спавнили всі початкові тайли
+            if (startTilesSpawned < 2) // Перевірка, чи ще не спавнили всі початкові тайли
             {
                 SpawnTileWithStartTag(); // Спавнувати тайл з тегом "StartTiles"
             }
@@ -108,6 +110,10 @@ public class TileSpawner : MonoBehaviour, ITileSpawner
 
     private void SpawnTileWithStartTag()
     {
+        tilePrefabs = new List<GameObject>()
+        {
+            startTile,
+        };
         // Отримати індекси всіх тайлів з тегом "StartTiles"
         List<int> startTileIndexes = new List<int>();
         for (int i = 0; i < tilePrefabs.Count; i++)
